@@ -8,9 +8,10 @@ class UserTest {
 
     public static final String CORRECT_LOGIN = "Ivan";
     public static final String CORRECT_EMAIL = "ivan@mail.ru";
+    public static final String DEFAULT_LOGIN = "Stranger";
+    public static final String DEFAULT_EMAIL = "stranger@mail.ru";
 
     public static final User CORRECT_USER = new User(CORRECT_LOGIN, CORRECT_EMAIL);
-    public static final User USER_WITHOUT_PARAMETERS = new User();
 
     @Test
     public void shouldSetDataWhenObjectIsCreated() {
@@ -19,7 +20,8 @@ class UserTest {
 
     @Test
     public void shouldCreateAnObjectWithoutPassingParametersToIt() {
-        assertEquals(USER_WITHOUT_PARAMETERS, new User());
+        User userWithDefaultParameters = new User(DEFAULT_LOGIN, DEFAULT_EMAIL);
+        assertEquals(userWithDefaultParameters, new User());
     }
 
     @Test
