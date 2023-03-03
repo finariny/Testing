@@ -3,8 +3,8 @@ package com.example.testing;
 import java.util.Objects;
 
 public class User {
-    private String login;
-    private String email;
+    private final String login;
+    private final String email;
 
     public User() {
         this.login = "Stranger";
@@ -12,6 +12,12 @@ public class User {
     }
 
     public User(String login, String email) {
+        if (login.equals(email)) {
+            throw new IllegalArgumentException("Логин и e-mail не могут быть одинаковыми");
+        }
+        if (!email.contains("@") || !email.contains(".")) {
+            throw new IllegalArgumentException("E-mail введён некорректно");
+        }
         this.login = login;
         this.email = email;
     }
@@ -20,20 +26,8 @@ public class User {
         return login;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public boolean isCorrectEmail(String email) {
-        return email.contains("@") && email.contains(".");
     }
 
     @Override

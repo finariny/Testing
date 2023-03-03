@@ -11,26 +11,28 @@ class UserTest {
     public static final String DEFAULT_LOGIN = "Stranger";
     public static final String DEFAULT_EMAIL = "stranger@mail.ru";
 
-    public static final User CORRECT_USER = new User(CORRECT_LOGIN, CORRECT_EMAIL);
-
     @Test
     public void shouldSetDataWhenObjectIsCreated() {
-        assertEquals(CORRECT_USER, new User(CORRECT_LOGIN, CORRECT_EMAIL));
+        User correctUser = new User(CORRECT_LOGIN, CORRECT_EMAIL);
+        assertEquals(CORRECT_LOGIN, correctUser.getLogin());
+        assertEquals(CORRECT_EMAIL, correctUser.getEmail());
     }
 
     @Test
     public void shouldCreateAnObjectWithoutPassingParametersToIt() {
-        User userWithDefaultParameters = new User(DEFAULT_LOGIN, DEFAULT_EMAIL);
-        assertEquals(userWithDefaultParameters, new User());
+        User userWithDefaultParameters = new User();
+        assertEquals(DEFAULT_LOGIN, userWithDefaultParameters.getLogin());
+        assertEquals(DEFAULT_EMAIL, userWithDefaultParameters.getEmail());
     }
 
     @Test
     public void shouldCheckIfTheEmailIsCorrect() {
-        assertTrue(CORRECT_USER.isCorrectEmail(CORRECT_EMAIL));
+        assertThrows(IllegalArgumentException.class, () -> new User(CORRECT_LOGIN, "ivan@mailru"));
+        assertDoesNotThrow(() -> new User(CORRECT_LOGIN, "ivan@mail.ru"));
     }
 
     @Test
     public void shouldCheckIfLoginAndEmailAreEqual() {
-        assertNotEquals(CORRECT_LOGIN, CORRECT_EMAIL);
+        assertThrows(IllegalArgumentException.class, () -> new User(CORRECT_LOGIN, CORRECT_LOGIN));
     }
 }
